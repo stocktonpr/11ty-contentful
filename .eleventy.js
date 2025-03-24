@@ -1,6 +1,7 @@
 require('dotenv').config();
 const contentful = require('contentful');
 const { documentToHtmlString } = require('@contentful/rich-text-html-renderer');
+const tailwindcss = require('eleventy-plugin-tailwindcss-4');
 
 // Initialize Contentful client
 const client = contentful.createClient({
@@ -9,6 +10,12 @@ const client = contentful.createClient({
 });
 
 module.exports = function(eleventyConfig) {
+  // Add Tailwind plugin with configuration
+  eleventyConfig.addPlugin(tailwindcss, {
+    input: 'css/tailwind.css',
+    output: 'css/styles.css'
+  });
+
   // Copy assets to _site
   eleventyConfig.addPassthroughCopy("src/assets");
 
@@ -30,7 +37,7 @@ module.exports = function(eleventyConfig) {
       });
       
       // Debug log to see content structure
-      console.log('Contentful entry:', JSON.stringify(entries.items[0], null, 2));
+      // console.log('Contentful entry:', JSON.stringify(entries.items[0], null, 2));
       
       return entries.items.map(entry => ({
         data: {
