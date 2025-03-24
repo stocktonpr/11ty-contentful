@@ -1,0 +1,19 @@
+---
+layout: layouts/base.njk
+title: Blog
+---
+
+<div class="blog-posts">
+  {% for post in collections.posts %}
+    <article class="post">
+      <h2>{{ post.data.title }}</h2>
+      <div class="post-meta">
+        <time datetime="{{ post.data.date }}">{{ post.data.date | date }}</time>
+        {% if post.data.author %} <span class="author">by {{ post.data.author }}</span> {% endif %}
+      </div>
+      <div class="post-content">
+        {{ post.data.content | safe }}
+      </div>
+    </article>
+  {% endfor %}
+</div> 
